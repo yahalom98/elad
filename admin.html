@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="admin.css">
+  </head>
+  <body>
+    <div class="nav-container">
+      <ul>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./admin.html">Login</a></li>
+      </ul>
+    </div>
+    <div class="admin-container">
+      <input type="text" class="userImg">
+      <input type="text" class="userCaption" placeholder="Caption">
+      <input type="text" class="userComment" placeholder="Comment">
+          <button class="btn">Save</button>
+
+    </div>
+  </body>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+    } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBXC1np6IllHeHES-dH9a5NSpmbm_T97sY",
+      authDomain: "koolibooli-b7d4c.firebaseapp.com",
+      projectId: "koolibooli-b7d4c",
+      storageBucket: "koolibooli-b7d4c.firebasestorage.app",
+      messagingSenderId: "3987203862",
+      appId: "1:3987203862:web:6d708cd8b5f5ad5c801237",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    let userImg = document.querySelector('.userImg');
+    let userComment = document.querySelector('.userComment');
+    let userCaption = document.querySelector('.userCaption');
+    let btn = document.querySelector('.btn');
+
+    async function saveData() {
+      // Add a new document with a generated id.
+      alert('שמרת נתון')
+      const docRef = await addDoc(collection(db, "posts"), {
+        userImg:userImg.value,
+        userCaption:userCaption.value,
+        userComment:userComment.value
+  
+      });
+      console.log("Document written with ID: ", docRef.id);
+    }
+
+    btn.addEventListener("click", saveData);
+  </script>
+</html>
